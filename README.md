@@ -1,5 +1,7 @@
 # OBSYNC Demo
 
+> 本仓库为 demo 演示项目。所有姓名、站点、事业部、token 均为虚构示例，不对应任何真实客户或公司。
+
 基于 Cloudflare Workers + D1 的智能工资查询系统 Demo
 
 ## 功能特性
@@ -59,12 +61,12 @@ npx wrangler deploy
 
 ## 测试账号
 
-| 角色 | 用户名 | 密码 |
-|------|--------|------|
-| 管理员 | admin | admin@2026 |
-| 业务总 | manager1 | lim11@2026 |
-| 业务总 | manager2 | wangf3@2026 |
-| 业务总 | manager3 | zhangwei@2026 |
+| 角色 | 用户名 | 密码 | 姓名 |
+|------|--------|------|------|
+| 管理员 | admin | admin@2026 | 系统管理员 |
+| 业务总 | manager1 | lim11@2026 | 业务总甲 |
+| 业务总 | manager2 | wangf3@2026 | 业务总乙 |
+| 业务总 | manager3 | zhangwei@2026 | 业务总丙 |
 
 ## API 接口
 

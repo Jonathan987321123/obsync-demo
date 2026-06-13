@@ -7,9 +7,9 @@ CREATE TABLE departments (
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
-INSERT INTO "departments" ("id","name","leader_name","created_at") VALUES(1,'北区事业部','李明','2026-01-01 00:00:00');
-INSERT INTO "departments" ("id","name","leader_name","created_at") VALUES(2,'南区事业部','王芳','2026-01-01 00:00:00');
-INSERT INTO "departments" ("id","name","leader_name","created_at") VALUES(3,'东区事业部','张伟','2026-01-01 00:00:00');
+INSERT INTO "departments" ("id","name","leader_name","created_at") VALUES(1,'北区事业部','业务总甲','2026-01-01 00:00:00');
+INSERT INTO "departments" ("id","name","leader_name","created_at") VALUES(2,'南区事业部','业务总乙','2026-01-01 00:00:00');
+INSERT INTO "departments" ("id","name","leader_name","created_at") VALUES(3,'东区事业部','业务总丙','2026-01-01 00:00:00');
 
 CREATE TABLE users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -31,9 +31,9 @@ CREATE TABLE users (
 
 INSERT INTO "users" ("username","password_hash","role","department_id","full_name","is_active") VALUES
 ('admin','YWRtaW46YWRtaW5AMjAyNg==','admin',NULL,'系统管理员',1),
-('manager1','bGltMTE6bGltMTFAMjAyNg==','business_leader',1,'李明',1),
-('manager2','d2FuZ2YzOndoYW5nZjNAMjAyNg==','business_leader',2,'王芳',1),
-('manager3','emhhbmd3ZWk6emhhbmd3ZWlAMjAyNg==','business_leader',3,'张伟',1);
+('manager1','bGltMTE6bGltMTFAMjAyNg==','business_leader',1,'业务总甲',1),
+('manager2','d2FuZ2YzOndoYW5nZjNAMjAyNg==','business_leader',2,'业务总乙',1),
+('manager3','emhhbmd3ZWk6emhhbmd3ZWlAMjAyNg==','business_leader',3,'业务总丙',1);
 
 CREATE TABLE salary_shift (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
