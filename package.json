@@ -1,0 +1,15 @@
+{
+  "name": "obsync-demo",
+  "version": "1.0.0",
+  "description": "OBSYNC Demo - Cloudflare Workers + D1 Wage Query System",
+  "main": "src/worker.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:init": "wrangler d1 execute obsync-demo --local --file=schema/init.sql",
+    "db:init:remote": "wrangler d1 execute obsync-demo --remote --file=schema/init.sql"
+  },
+  "keywords": ["cloudflare-workers", "d1", "wage-calculation"],
+  "author": "",
+  "license": "MIT"
+}
