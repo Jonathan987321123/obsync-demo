@@ -1,27 +1,34 @@
 # Cloudflare Workers Business Application Demo
 
+Enterprise-grade payroll query system built on Cloudflare Workers + D1, featuring AI Assistant, RBAC permission control, operation audit, and complete business functionality.
+
 > 本仓库为 demo 演示项目。所有姓名、站点、事业部、token 均为虚构示例，不对应任何真实客户或公司。
+> *This is a demo project. All names, sites, departments, and tokens are fictional examples and do not correspond to any real clients or companies.*
 
-基于 Cloudflare Workers + D1 构建的企业级工资查询系统，支持 AI 助手、RBAC 权限控制、操作审计等完整业务功能。
+---
 
-## 在线 Demo
+## Online Demo
 
-**API 地址**：`https://obsync-demo.your-account.workers.dev`
+**API Address**: `https://obsync-demo.your-account.workers.dev`
 
-> 部署后替换为你的 Worker 地址
+> 部署后替换为你的 Worker 地址 / Replace with your Worker URL after deployment.
 
-## 功能特性
+---
 
-| 功能 | 说明 |
-|------|------|
-| AI Assistant | 智能对话查询，支持自然语言理解工资规则 |
-| RBAC | 5 级角色权限体系，精细化数据隔离 |
-| Dashboard | 实时统计，查询/审计/错误日志可视化 |
-| Audit Log | 完整操作审计，满足合规要求 |
-| D1 Database | SQLite 架构，全球分布式边缘部署 |
-| 4-Level Cascade | 事业部 → 站点 → 职务 → 岗位联动计算 |
+## Features
 
-## 架构图
+| Feature | Description |
+|---------|-------------|
+| **AI Assistant** | Intelligent dialogue for querying payroll rules with natural language understanding |
+| **RBAC** | 5-level role permission system with fine-grained data isolation |
+| **Dashboard** | Real-time statistics, query/audit/error log visualization |
+| **Audit Log** | Complete operation audit trail for compliance requirements |
+| **D1 Database** | SQLite architecture with global distributed edge deployment |
+| **4-Level Cascade** | Department → Site → Position → Post linkage calculation |
+
+---
+
+## Architecture
 
 ```
 ┌──────────────┐     ┌─────────────────┐     ┌─────────────┐
@@ -36,126 +43,145 @@
                      └─────────────────┘
 ```
 
-## 技术栈
+---
 
-| 技术 | 用途 |
-|------|------|
-| Cloudflare Workers | 边缘计算 API |
-| Cloudflare D1 | SQLite 分布式数据库 |
-| Cloudflare Pages | 前端静态托管 |
-| JavaScript (ES6+) | 主开发语言 |
-| HMAC-SHA256 | Token 认证 |
-| MiniMax M3 | AI 对话引擎 |
+## Tech Stack
 
-## 项目结构
+| Technology | Purpose |
+|-----------|---------|
+| Cloudflare Workers | Edge computing API |
+| Cloudflare D1 | SQLite distributed database |
+| Cloudflare Pages | Frontend static hosting |
+| JavaScript (ES6+) | Primary development language |
+| HMAC-SHA256 | Token authentication |
+| MiniMax M3 | AI dialogue engine |
+
+---
+
+## Project Structure
 
 ```
 obsync-demo/
 ├── src/
-│   └── worker.js          # Cloudflare Worker 主代码 (~700 lines)
+│   └── worker.js          # Cloudflare Worker main code (~700 lines)
 ├── schema/
-│   └── init.sql           # 数据库初始化脚本 (8 tables)
+│   └── init.sql           # Database initialization (8 tables)
 ├── tests/
-│   └── test.js            # 回归测试
-├── wrangler.toml          # Wrangler 配置
-├── package.json          # npm 依赖
+│   └── test.js            # Regression tests
+├── wrangler.toml          # Wrangler configuration
+├── package.json          # npm dependencies
 └── README.md
 ```
 
-## 快速开始
+---
 
-### 1. 克隆仓库
+## Quick Start
+
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/Jonathan987321123/obsync-demo.git
 cd obsync-demo
 ```
 
-### 2. 初始化 D1 数据库
+### 2. Initialize D1 Database
 
 ```bash
-# 创建 D1 数据库
+# Create D1 database
 npx wrangler d1 create obsync-demo
 
-# 将 database_id 填入 wrangler.toml
+# Fill database_id in wrangler.toml
 
-# 初始化表结构
+# Initialize table structure
 npx wrangler d1 execute obsync-demo --local --file=schema/init.sql
 ```
 
-### 3. 配置环境变量
+### 3. Configure environment variables
 
 ```bash
-# 设置 HMAC 密钥（用于 Token 签名）
+# Set HMAC secret (for token signing)
 npx wrangler secret put HMAC_SECRET
 
-# 设置 AI API Key（用于 Chat 功能）
+# Set AI API Key (for Chat feature)
 npx wrangler secret put M3_API_KEY
 ```
 
-### 4. 部署
+### 4. Deploy
 
 ```bash
 npx wrangler deploy
 ```
 
-## 测试结果
+---
 
-| 测试项 | 状态 |
-|--------|------|
-| Payroll 计算 (5 cases) | ✅ PASS |
-| Chat Query 解析 | ✅ PASS |
-| Role Permission | ✅ PASS |
-| Query Log Replay | ✅ PASS |
-| Playback Regression | ✅ PASS |
+## Test Results
 
-## 数据库表结构
+| Test Case | Status |
+|-----------|--------|
+| Payroll calculation (5 cases) | ✅ PASS |
+| Chat query parsing | ✅ PASS |
+| Role permission | ✅ PASS |
+| Query log replay | ✅ PASS |
+| Playback regression | ✅ PASS |
 
-| 表名 | 用途 |
-|------|------|
-| `departments` | 事业部/部门 |
-| `users` | 用户认证 |
-| `salary_shift` | 工资规则 (32 条) |
-| `query_log` | 查询日志 |
-| `audit_log` | 操作审计 |
-| `error_log` | 错误追踪 |
-| `chat_log` | 对话限制 |
+---
 
-## 角色权限
+## Database Schema
 
-| 角色 | 数据权限范围 |
-|------|-------------|
-| `admin` | 全部事业部/站点/数据 |
-| `business_leader` | 本事业部所有站点 |
-| `regional_manager` | 本区域所有站点 |
-| `account_manager` | 自己负责的客户数据 |
-| `captain` | 分配的站点 |
+| Table Name | Purpose |
+|-----------|---------|
+| `departments` | Business departments |
+| `users` | User authentication |
+| `salary_shift` | Salary rules (32 items) |
+| `query_log` | Query logs |
+| `audit_log` | Operation audit |
+| `error_log` | Error tracking |
+| `chat_log` | Conversation limits |
 
-## 测试账号
+---
 
-| 角色 | 用户名 | 密码 | 姓名 |
-|------|--------|------|------|
-| 管理员 | admin | admin@2026 | 系统管理员 |
-| 业务总 | manager1 | lim11@2026 | 业务总甲 |
-| 业务总 | manager2 | wangf3@2026 | 业务总乙 |
-| 业务总 | manager3 | zhangwei@2026 | 业务总丙 |
+## Role Permissions
 
-## API 接口
+| Role | Data Permission Scope |
+|------|----------------------|
+| `admin` | All departments/sites/data |
+| `business_leader` | All sites in department |
+| `regional_manager` | All sites in region |
+| `account_manager` | Customer data under management |
+| `captain` | Assigned sites |
 
-### 登录
+---
+
+## Test Accounts
+
+| Role | Username | Password | Name |
+|------|----------|----------|------|
+| Admin | admin | admin@2026 | System Admin |
+| Business Manager | manager1 | lim11@2026 | Manager A |
+| Business Manager | manager2 | wangf3@2026 | Manager B |
+| Business Manager | manager3 | zhangwei@2026 | Manager C |
+
+---
+
+## API Endpoints
+
+### Login
+
 ```bash
 curl -X POST https://your-worker.workers.dev/login \
   -H "Content-Type: application/json" \
   -d '{"username":"admin","password":"admin@2026"}'
 ```
 
-### 获取事业部列表
+### Get department list
+
 ```bash
 curl https://your-worker.workers.dev/?api=regions \
   -H "Authorization: Bearer YOUR_TOKEN"
 ```
 
-### 工资计算
+### Calculate payroll
+
 ```bash
 curl -X POST https://your-worker.workers.dev/calc \
   -H "Authorization: Bearer YOUR_TOKEN" \
@@ -171,7 +197,8 @@ curl -X POST https://your-worker.workers.dev/calc \
   }'
 ```
 
-### AI Chat 查询
+### AI Chat query
+
 ```bash
 curl -X POST https://your-worker.workers.dev/api/chat \
   -H "Authorization: Bearer YOUR_TOKEN" \
@@ -179,11 +206,14 @@ curl -X POST https://your-worker.workers.dev/api/chat \
   -d '{"message":"星河广场 保安员 20天 多少钱"}'
 ```
 
-### Dashboard (仅管理员)
+### Dashboard (admin only)
+
 ```bash
 curl https://your-worker.workers.dev/api/admin/dashboard \
   -H "Authorization: Bearer YOUR_TOKEN"
 ```
+
+---
 
 ## License
 
